@@ -7,8 +7,8 @@ class Post(models.Model):
     title = models.CharField(max_length= 255)
     content = models.TextField()
     status  = models.BooleanField()
-    category = models.ForeignKey('Category', on_delete= models.SET_NULL, null= True)
-    comments = models.ForeignKey('Comments', on_delete= models.SET_NULL, null= True),
+    category = models.ForeignKey('Category', on_delete= models.SET_NULL, null= True, related_name= 'category')
+    comments = models.ForeignKey('Comments', on_delete= models.SET_NULL, null= True, related_name= 'comments'),
     created_date = models.DateTimeField(auto_now_add= True)
     updated_date = models.DateTimeField(auto_now= True)
     published_date = models.DateTimeField()
