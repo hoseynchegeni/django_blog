@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from ...models import Post, Category, Comment
+from ...models import Post, Category
 
 class PostListSerializer(serializers.ModelSerializer):
     category = serializers.SlugRelatedField(many = False, slug_field= "name", queryset = Category.objects.all())
