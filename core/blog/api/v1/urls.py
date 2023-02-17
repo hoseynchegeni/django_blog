@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import PostListApiView, PostViewSet
+from .views import  PostApiView, CategoryApiView
 from rest_framework.routers import DefaultRouter
 
 
@@ -9,5 +9,6 @@ from rest_framework.routers import DefaultRouter
 
 router = DefaultRouter()
 
-router.register('post', PostViewSet, basename= 'post')
+router.register('post', PostApiView, basename= 'post')
+router.register('category', CategoryApiView, basename= 'category')
 urlpatterns = router.urls

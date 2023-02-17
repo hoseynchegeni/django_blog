@@ -1,21 +1,17 @@
 from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
-from .serializers import PostListSerializer
-from ...models import Post
+from .serializers import PostListSerializer, CategorySerializer
+from ...models import Post, Category
 from rest_framework.response import Response 
 
 
-class PostListApiView(APIView):
-    serializer_class = PostListSerializer
-
-    def get(self, request):
-        posts = Post.objects.filter(status = True)
-        serializer = self.serializer_class(posts, many = True)
-        return Response (serializer.data)
-    
-
-class PostViewSet(ModelViewSet):
+class PostApiView(ModelViewSet):
     serializer_class = PostListSerializer
     queryset = Post.objects.filter(status = True)
+
+
+class CategoryApiView(ModelViewSet):
+    serializer_class = CategorySerializer
+    queryset = Category.objects.all()
 
     
