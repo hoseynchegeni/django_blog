@@ -13,9 +13,12 @@ class PostSerializer(serializers.ModelSerializer):
             "content",
             "status",
             "category",
+            "like_counter",
             "created_date",
             "updated_date",
             "published_date",]
+        
+        read_only_fields = ["like_counter"]
         
     def to_representation(self, instance):
         request = self.context.get("request")
