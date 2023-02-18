@@ -36,4 +36,12 @@ class PostSerializer(serializers.ModelSerializer):
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
-        fields = "__all__"
+        fields = ['id','name','url']
+        read_only_fields = ["url"]
+
+    def to_representation(self, instance):
+        rep =  super().to_representation(instance)
+        rep['url'] = f'http://127.0.0.1:8000/blog/api/v1/post/?search={instance.name}'
+        return rep
+
+
