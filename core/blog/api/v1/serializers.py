@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from ...models import Post, Category
 
-class PostListSerializer(serializers.ModelSerializer):
+class PostSerializer(serializers.ModelSerializer):
     category = serializers.SlugRelatedField(many = False, slug_field= "name", queryset = Category.objects.all())
     
     class Meta:
