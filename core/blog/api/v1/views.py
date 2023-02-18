@@ -5,13 +5,16 @@ from ...models import Post, Category
 from .permissions import IsAuthorOrReadOnly
 from django.db.models import Count
 from .pagination import PopularPostsPagination, PostPagination
-
+from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework.filters import SearchFilter
 
 class PostApiView(ModelViewSet):
     permission_classes = [IsAuthorOrReadOnly]
     serializer_class = PostSerializer
     queryset = Post.objects.filter(status = True)
     pagination_class = PostPagination
+    filter_backends = [DjangoFilterBackend, SearchFilter]
+    search_fields = ['category__name']
 
 class CategoryApiView(ModelViewSet):
     serializer_class = CategorySerializer
