@@ -1,10 +1,11 @@
-from rest_framework.generics import GenericAPIView
-from .serializers import RegistrationSerializer, ChangePasswordSerializer
+from rest_framework.generics import GenericAPIView, RetrieveUpdateAPIView
+from .serializers import RegistrationSerializer, ChangePasswordSerializer, ProfileSerializer
 from django.shortcuts import get_object_or_404
 from ...models import User
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
+from ...models import Profile
 
 class RegistrationApiView(GenericAPIView):
     serializer_class = RegistrationSerializer
@@ -44,3 +45,14 @@ class ChangePasswordView(GenericAPIView):
                 status = status.HTTP_200_OK
             )
         return Response (serializer.errors, status= status.HTTP_400_BAD_REQUEST)
+
+
+
+class ProfileApiView(RetrieveUpdateAPIView):
+    serializer_class = ProfileSerializer
+    queryset =  Profile.objects.all()
+
+    def get_object(self):
+        queryset = self.get_queryset()
+        obj = get_object_or_404(queryset, user = self.request.user.id)
+        return obj
