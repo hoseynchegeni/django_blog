@@ -6,6 +6,8 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
 from ...models import Profile
+from rest_framework.generics import ListAPIView
+
 
 class RegistrationApiView(GenericAPIView):
     serializer_class = RegistrationSerializer
@@ -56,3 +58,11 @@ class ProfileApiView(RetrieveUpdateAPIView):
         queryset = self.get_queryset()
         obj = get_object_or_404(queryset, user = self.request.user.id)
         return obj
+    
+class ProfileList(ListAPIView):
+    serializer_class = ProfileSerializer
+    queryset = Profile.objects.all()
+    
+    def get(self, request, *args, **kwargs):
+        return self.list(request, *args, **kwargs)
+    
